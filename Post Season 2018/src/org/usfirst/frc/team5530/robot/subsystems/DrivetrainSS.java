@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5530.robot.subsystems;
 
 import org.usfirst.frc.team5530.robot.RobotMap;
+import org.usfirst.frc.team5530.robot.commands.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -31,6 +32,7 @@ public class DrivetrainSS extends Subsystem {
 	}
 
     public void initDefaultCommand() {
+    		setDefaultCommand(new XboxDrive());
         //setDefaultCommand(new MySpecialCommand());
     }
 }
