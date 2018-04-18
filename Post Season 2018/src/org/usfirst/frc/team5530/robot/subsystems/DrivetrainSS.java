@@ -21,6 +21,8 @@ public class DrivetrainSS extends Subsystem {
 	public static void initializeDrivetrain() {
 		backRight.set(ControlMode.Follower, (double)RobotMap.FR);
 		backLeft.set(ControlMode.Follower, (double)RobotMap.FL);
+		frontRight.setInverted(true);
+		backRight.setInverted(true);
 		
 		DrivetrainSS.frontRight.setSensorPhase(true);
 		
