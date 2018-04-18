@@ -22,6 +22,8 @@ public class XboxDrive extends Command {
         requires(Robot.drivetrain);
     }
     
+    
+    
     public double getModifiedStick(double stick) {
     		//Reverses stick value based on the direction of the robot
 		if (rTrigger - lTrigger >= 0) return stick;
@@ -37,29 +39,34 @@ public class XboxDrive extends Command {
 	
 	}
 
-    // Called just before this Command runs the first time
+	
+	
     protected void initialize() {
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    		//Updating XBox Controller Values
+    		lStick = OI.XBController.getX(Hand.kLeft);
+    		rTrigger = OI.XBController.getTriggerAxis(Hand.kRight);
+    		lTrigger = OI.XBController.getTriggerAxis(Hand.kLeft);
+    		
+    	
+    		//Raising the output to a power
     		if (RightSpeed() > 0) DrivetrainSS.frontRight.set(ControlMode.PercentOutput, Math.pow(RightSpeed(), 2) * .75);
 		else DrivetrainSS.frontRight.set(ControlMode.PercentOutput, -Math.pow(RightSpeed(), 2) * .75);
+    		
 		if (LeftSpeed() > 0) DrivetrainSS.frontLeft.set(ControlMode.PercentOutput, Math.pow(LeftSpeed(), 2) * .75);
 		else DrivetrainSS.frontLeft.set(ControlMode.PercentOutput, -Math.pow(LeftSpeed(), 2) * .75);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return true;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+
     protected void interrupted() {
     }
 }

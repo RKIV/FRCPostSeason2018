@@ -19,7 +19,7 @@ public class DrivetrainSS extends Subsystem {
 	public static WPI_TalonSRX backRight  = new WPI_TalonSRX(RobotMap.BR);
 	public static WPI_TalonSRX backLeft = new WPI_TalonSRX(RobotMap.BL);
 	
-	public static void initializeDrivetrain() {
+	public static void initialize() {
 		backRight.set(ControlMode.Follower, (double)RobotMap.FR);
 		backLeft.set(ControlMode.Follower, (double)RobotMap.FL);
 		frontRight.setInverted(true);

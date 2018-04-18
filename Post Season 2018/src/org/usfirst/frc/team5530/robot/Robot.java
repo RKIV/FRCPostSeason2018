@@ -42,6 +42,7 @@ public class Robot extends TimedRobot {
 		autonChooser.addObject(farLeft, farLeft);
 		SmartDashboard.putData("Auton Chooser",autonChooser);
 		
+		DrivetrainSS.initialize();
 		
 	}
 
