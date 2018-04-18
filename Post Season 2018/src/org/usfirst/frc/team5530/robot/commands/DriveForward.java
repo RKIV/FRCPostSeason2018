@@ -43,7 +43,8 @@ public class DriveForward extends Command{
 	}
 	
 	protected void interrupted() {
-		
+		DrivetrainSS.frontRight.set(0);
+		DrivetrainSS.frontLeft.set(0);
 	}
 	
 }
