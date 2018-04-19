@@ -17,7 +17,7 @@ public class DriveForward extends Command{
 	double timeout;
 	
 	public DriveForward(double distance, double timeout) {
-		requires(Robot.drivetrain);
+		requires(Robot.drivetrainSS);
 		double rotations = distance / (6 * Math.PI);
 		this.encodeDistance = rotations * 1024;
 	}

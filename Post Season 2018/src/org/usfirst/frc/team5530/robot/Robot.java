@@ -16,9 +16,12 @@ import org.usfirst.frc.team5530.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
 	public static OI oi;
-	public static DrivetrainSS drivetrain;
+	public static ArmSS armSS;
+	public static DrivetrainSS drivetrainSS;
+	public static ElevatorSS elevatorSS;
+	public static IntakeSS intakeSS;
 	
-	//Removing Magic Strings
+	//Setting Strings to variables
 	static final String driveForward = "Drive Forward";
 	static final String driveForwardAndDeliver = "Drive Forward and Deliver";
 	static final String farLeft = "Far Left";
@@ -33,7 +36,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		drivetrain = new DrivetrainSS();
+		armSS = new ArmSS();
+		drivetrainSS = new DrivetrainSS();
+		elevatorSS = new ElevatorSS();
+		intakeSS = new IntakeSS();
 		
 		autonChooser.addDefault(driveForward, driveForward);
 		autonChooser.addObject(driveForwardAndDeliver, driveForwardAndDeliver);
@@ -43,6 +49,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auton Chooser",autonChooser);
 		
 		DrivetrainSS.initialize();
+		ElevatorSS.initialize();
+		IntakeSS.initialize();
 		
 	}
 

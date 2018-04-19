@@ -25,10 +25,10 @@ public class DrivetrainSS extends Subsystem {
 		frontRight.setInverted(true);
 		backRight.setInverted(true);
 		
-		DrivetrainSS.frontRight.setSensorPhase(true);
+		frontRight.setSensorPhase(true);
 		
-		DrivetrainSS.frontRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		DrivetrainSS.frontLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		frontRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		frontLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 	}
 
     public void initDefaultCommand() {

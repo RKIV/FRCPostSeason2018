@@ -2,6 +2,8 @@ package org.usfirst.frc.team5530.robot.subsystems;
 
 import org.usfirst.frc.team5530.robot.RobotMap;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -21,6 +23,15 @@ public class ElevatorSS extends Subsystem {
 	
 	public static DigitalInput elevatorSwitchTop = new DigitalInput(RobotMap.LS2);
 	public static DigitalInput elevatorSwitchBot = new DigitalInput(RobotMap.LS3);
+	
+	public static void initialize() {
+		Elevator1.set(ControlMode.Follower, (double)RobotMap.E0);
+		
+		Elevator0.setInverted(true);
+		Elevator1.setInverted(true);
+		
+		Elevator0.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);	
+	}
 
     public void initDefaultCommand() {
         

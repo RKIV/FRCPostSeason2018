@@ -2,6 +2,7 @@ package org.usfirst.frc.team5530.robot.subsystems;
 
 import org.usfirst.frc.team5530.robot.RobotMap;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -17,6 +18,10 @@ public class IntakeSS extends Subsystem {
 	
 	public static boolean intakeOn = false;
 
+	public static void initialize() {
+		Intake1.set(ControlMode.Follower, (double)RobotMap.I0);
+		Intake1.setInverted(true);
+	}
     public void initDefaultCommand() {
     	
     }

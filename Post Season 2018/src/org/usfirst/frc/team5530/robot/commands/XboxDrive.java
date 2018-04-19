@@ -19,7 +19,7 @@ public class XboxDrive extends Command {
 	
 	
     public XboxDrive() {
-        requires(Robot.drivetrain);
+        requires(Robot.drivetrainSS);
     }
     
     
