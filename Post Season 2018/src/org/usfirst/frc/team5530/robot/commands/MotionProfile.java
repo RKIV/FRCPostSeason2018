@@ -5,15 +5,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team5530.robot.subsystems.DrivetrainSS;
 
 import com.ctre.phoenix.motion.*;
+import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.Notifier;
 import com.ctre.phoenix.motorcontrol.can.*;
 
-/**
- *
- */
-public class MotionProfile extends Command {
+public class MotionProfile{
 
     WPI_TalonSRX _talon;
 	
@@ -95,7 +93,7 @@ public class MotionProfile extends Command {
 						 * MP is being sent to CAN bus, wait a small amount of time
 						 */
 						_state = 1;
-						_loopTimeout = kNumLoopsTimeout;
+						_loopTimeout = NUM_LOOPS_TIMEOUT;
 					}
 					break;
 				case 1: /*
@@ -103,12 +101,12 @@ public class MotionProfile extends Command {
 						 * points
 						 */
 					/* do we have a minimum numberof points in Talon */
-					if (_status.btmBufferCnt > kMinPointsInTalon) {
+					if (_status.btmBufferCnt > MIN_POINTS_IN_TALON) {
 						/* start (once) the motion profile */
-						_setValue = CANTalon.SetValueMotionProfile.Enable;
+						_setValue = SetValueMotionProfile.Enable;
 						/* MP will start once the control frame gets scheduled */
 						_state = 2;
-						_loopTimeout = kNumLoopsTimeout;
+						_loopTimeout = NUM_LOOPS_TIMEOUT;
 					}
 					break;
 				case 2: /* check the status of the MP */
@@ -118,19 +116,19 @@ public class MotionProfile extends Command {
 					 * the middle of an MP and react to it.
 					 */
 					if (_status.isUnderrun == false) {
-						_loopTimeout = kNumLoopsTimeout;
+						_loopTimeout = NUM_LOOPS_TIMEOUT;
 					}
 					/*
 					 * If we are executing an MP and the MP finished, start loading
 					 * another. We will go into hold state so robot servo's
 					 * position.
 					 */
-					if (_status.activePointValid && _status.activePoint.isLastPoint) {
+					if (_status.activePointValid && _status.isLast) {
 						/*
 						 * because we set the last point's isLast to true, we will
 						 * get here when the MP is done
 						 */
-						_setValue = CANTalon.SetValueMotionProfile.Hold;
+						_setValue = SetValueMotionProfile.Hold;
 						_state = 0;
 						_loopTimeout = -1;
 					}
@@ -138,32 +136,51 @@ public class MotionProfile extends Command {
 			}
 		}
 		/* printfs and/or logging */
-		instrumentation.process(_status);
+//		instrumentation.process(_status);
 	}
     
-    
-    
+	/** Start filling the MPs to all of the involved Talons. */
+	private void startFilling() {
+		/* since this example only has one talon, just update that one */
+		startFilling(GeneratedMotionProfile.Points, GeneratedMotionProfile.NUM_OF_POINTS);
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    		DrivetrainSS.frontRight.set(ControlMode.MotionProfile, 0);
-    }
+	private void startFilling(double[][] profile, int totalCnt) {
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+		TrajectoryPoint point = new TrajectoryPoint();
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+		if (_status.hasUnderrun) {
+			/* better log it so we know about it */
+//			instrumentation.OnUnderrun();
+			_talon.clearMotionProfileHasUnderrun(1);
+		}
+		
+		_talon.clearMotionProfileTrajectories();
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+		for (int i = 0; i < totalCnt; ++i) {
+			point.position = profile[i][0];
+			point.velocity = profile[i][1];
+			point.timeDur = TrajectoryDuration.Trajectory_Duration_10ms;
+			point.profileSlotSelect0 = 0; 
+			point.zeroPos = false;
+			if (i == 0)
+				point.zeroPos = true; 
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+			point.isLastPoint = false;
+			if ((i + 1) == totalCnt)
+				point.isLastPoint = true; 
+
+			_talon.pushMotionProfileTrajectory(point);
+		}
+	}
+
+	void startMotionProfile() {
+		_bStart = true;
+	}
+
+	SetValueMotionProfile getSetValue() {
+		return _setValue;
+	}
+
+
 }
