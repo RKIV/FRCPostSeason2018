@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
+import java.lang.StringBuilder;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,6 +15,7 @@ public class CSVOut {
 	private static final String NEW_LINE_SEPARATOR = "\n";
 	private int columnLength;
 	FileWriter fileWriter = null;
+	StringBuilder sb = new StringBuilder();
 	
 	
 	/**
@@ -39,29 +40,34 @@ public class CSVOut {
 			e.printStackTrace();
 		}
 	}
-	
-	public void update(double ... values  ) {
+	/**
+	 * Run every loop to update CSV values
+	 * @param values Each value as an argument in the same order that the CSV was contructed
+	 * Will throw error if the number of values is different from the number of columns
+	 */
+	public void updateCSV(double ... values  ) {
 		if (values.length != columnLength) {
 			throw new RuntimeException("Column number not equal to data number");
 		}
 		for (double value : values) {
-			try {
-				fileWriter.append(Double.toString(value));
-				fileWriter.append(COMMA_DELIMITER);
-			} catch (IOException e) {
-				System.out.println("Error in CsvFileWriter !!!");
-				e.printStackTrace();
-			}
+			sb.append(Double.toString(value));
+			sb.append(Double.toString(value));
+			sb.append(COMMA_DELIMITER);
 		}
-		
+		sb.append(NEW_LINE_SEPARATOR);
+
+	}
+	/**
+	 * Call this at the very end of the program to output the CSV
+	 * @param fileName
+	 */
+	public void writeCsvFile(String fileName) {
 		try {
-			fileWriter.append(NEW_LINE_SEPARATOR);
-		} catch (IOException e) {
+			fileWriter.append(sb.toString());
+			System.out.println("CSV Created");
+		}catch(Exception e) {
+			System.out.println("Error in CsvFileWriter !!!");
 			e.printStackTrace();
 		}
-	}
-	
-	public void writeCsvFile(String fileName) {
-		
 	}
 }
