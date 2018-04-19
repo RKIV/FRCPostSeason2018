@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5530.robot;
 
+import org.usfirst.frc.team5530.robot.commands.*;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -14,15 +16,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
-/**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
- */
+
 public class OI {
 	
 	public static Joystick stick1 = new Joystick(0);
 	public static XboxController XBController = new XboxController(1);
-	public static Button[] buttons = new Button[12];
+	public static Button[] buttons = new Button[13];
 	
 	public OI(){
 		//Making an array of Twelve Buttons
@@ -36,6 +35,8 @@ public class OI {
 				xboxButtonY = new JoystickButton(XBController, 4),
 				xboxButtonLB = new JoystickButton(XBController, 5),
 				xboxButtonRB = new JoystickButton(XBController, 6);
+		
+		buttons[0].whenPressed(new Intake(true));
 	}
 	
 	
