@@ -39,4 +39,10 @@ public class RobotMap {
 	//Potentiometer - Analog Input
 	public static int armPotentiometer = 0;
 	
+	//Limit Switches - Digital Input
+	public static int LS0 = 0;
+	public static int LS1 = 1;
+	public static int LS2 = 2;
+	public static int LS3 = 3;
+	
 }

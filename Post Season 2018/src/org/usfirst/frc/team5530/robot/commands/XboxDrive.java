@@ -23,18 +23,26 @@ public class XboxDrive extends Command {
     }
     
     
-    
+    /**
+     * Inverts the joystickstick based on the diretion of the robot
+     * @param stick Joystick to be modified
+     * @return The modified stick
+     */
     public double getModifiedStick(double stick) {
     		//Reverses stick value based on the direction of the robot
 		if (rTrigger - lTrigger >= 0) return stick;
 		return -stick;
 	}
-    
-    public double RightSpeed() {
-		return -(rTrigger - lTrigger - getModifiedStick(lStick));
+    /** 
+     * @return The speed to be set to the right side
+     */
+    public double getRightSpeed() {
+		return rTrigger - lTrigger - getModifiedStick(lStick);
 	}
-	
-	public double LeftSpeed(){
+	/**
+	 * @return The speed to be set to the left side
+	 */
+	public double getLeftSpeed(){
 		return rTrigger - lTrigger + getModifiedStick(lStick);
 	
 	}
@@ -52,11 +60,11 @@ public class XboxDrive extends Command {
     		
     	
     		//Raising the output to a power
-    		if (RightSpeed() > 0) DrivetrainSS.frontRight.set(ControlMode.PercentOutput, Math.pow(RightSpeed(), 2) * .75);
-		else DrivetrainSS.frontRight.set(ControlMode.PercentOutput, -Math.pow(RightSpeed(), 2) * .75);
+    		if (getRightSpeed() > 0) DrivetrainSS.frontRight.set(ControlMode.PercentOutput, Math.pow(getRightSpeed(), 2) * .75);
+		else DrivetrainSS.frontRight.set(ControlMode.PercentOutput, -Math.pow(getRightSpeed(), 2) * .75);
     		
-		if (LeftSpeed() > 0) DrivetrainSS.frontLeft.set(ControlMode.PercentOutput, Math.pow(LeftSpeed(), 2) * .75);
-		else DrivetrainSS.frontLeft.set(ControlMode.PercentOutput, -Math.pow(LeftSpeed(), 2) * .75);
+		if (getLeftSpeed() > 0) DrivetrainSS.frontLeft.set(ControlMode.PercentOutput, Math.pow(getLeftSpeed(), 2) * .75);
+		else DrivetrainSS.frontLeft.set(ControlMode.PercentOutput, -Math.pow(getLeftSpeed(), 2) * .75);
     }
 
     protected boolean isFinished() {
