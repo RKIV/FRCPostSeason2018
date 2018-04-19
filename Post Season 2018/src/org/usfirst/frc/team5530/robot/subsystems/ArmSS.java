@@ -13,11 +13,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ArmSS extends Subsystem {
 
 	public static final double MAX_ARM_HEIGHT = 460;
-	public static final double RESTING_ARM_HEIGHT = 2900;
+	public static final double RESTING_HEIGHT = 2900;
 	
 	public static WPI_TalonSRX arm = new WPI_TalonSRX(RobotMap.A0);
 	
 	public static AnalogInput potentiometer0 = new AnalogInput(RobotMap.armPotentiometer);
+	
+	public static enum Position{
+		Stored, HoldResting, Resting, Mid, Top 
+	}
 
     public void initDefaultCommand() {
     	

@@ -24,6 +24,10 @@ public class ElevatorSS extends Subsystem {
 	public static DigitalInput elevatorSwitchTop = new DigitalInput(RobotMap.LS2);
 	public static DigitalInput elevatorSwitchBot = new DigitalInput(RobotMap.LS3);
 	
+	public static enum Position{
+		Bot, Mid, Top
+	}
+	
 	public static void initialize() {
 		Elevator1.set(ControlMode.Follower, (double)RobotMap.E0);
 		

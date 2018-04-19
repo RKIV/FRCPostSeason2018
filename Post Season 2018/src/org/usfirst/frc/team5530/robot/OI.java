@@ -7,7 +7,9 @@
 
 package org.usfirst.frc.team5530.robot;
 
+
 import org.usfirst.frc.team5530.robot.commands.*;
+import org.usfirst.frc.team5530.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
@@ -36,7 +38,9 @@ public class OI {
 				xboxButtonLB = new JoystickButton(XBController, 5),
 				xboxButtonRB = new JoystickButton(XBController, 6);
 		
-		buttons[0].whenPressed(new Intake(true));
+		buttons[9].toggleWhenPressed(new Intake(true));
+		buttons[10].whenPressed(new MoveElevator(ElevatorSS.Position.Bot));
+		buttons[11].whenPressed(new MoveElevator(ElevatorSS.Position.Top));
 	}
 	
 	
