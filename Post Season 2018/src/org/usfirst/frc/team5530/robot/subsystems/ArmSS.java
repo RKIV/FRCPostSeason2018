@@ -20,7 +20,7 @@ public class ArmSS extends Subsystem {
 	public static AnalogInput potentiometer0 = new AnalogInput(RobotMap.armPotentiometer);
 	
 	public static enum Position{
-		Stored, HoldResting, Resting, Mid, Top 
+		STORED, HOLD, RESTING, MID, TOP; 
 	}
 
     public void initDefaultCommand() {

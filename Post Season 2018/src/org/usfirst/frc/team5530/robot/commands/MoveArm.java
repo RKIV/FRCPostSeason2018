@@ -27,19 +27,19 @@ public class MoveArm extends Command {
 
     protected void execute() {
 	    	switch(position){
-			case Stored:
+			case STORED:
 				ArmSS.arm.set(-1);
 				break;
-			case Resting:
+			case RESTING:
 				ArmSS.arm.set(-1);
 				break;
-			case HoldResting:
+			case HOLD:
 				ArmSS.arm.set(ControlMode.PercentOutput, .0057*(ArmSS.potentiometer0.getValue() - ArmSS.RESTING_HEIGHT) + .16);
 				break;
-			case Mid:
+			case MID:
 				ArmSS.arm.set(1);
 				break;
-			case Top:
+			case TOP:
 				ArmSS.arm.set(ControlMode.PercentOutput, .0057*(ArmSS.potentiometer0.getValue() - ArmSS.MAX_ARM_HEIGHT) + .16);
 				break;
 			}
@@ -47,19 +47,19 @@ public class MoveArm extends Command {
     
     protected boolean isFinished() {
 	    	switch(position){
-			case Stored:
+			case STORED:
 				if (ArmSS.potentiometer0.getValue() >= 3300) return true; //TODO Set this arbitrary value(3300) to be correct
 				break;
-			case Resting:
+			case RESTING:
 				if (ArmSS.potentiometer0.getValue() >= 2500) return true;
 				break;
-			case HoldResting:
+			case HOLD:
 				break;
-			case Mid:
+			case MID:
 				if(counter < MAX_HOLD_TIME) counter++;
 				else return true;
 				break;
-			case Top:
+			case TOP:
 				if(counter < MAX_HOLD_TIME) counter ++;
 				else return true;
 				break;

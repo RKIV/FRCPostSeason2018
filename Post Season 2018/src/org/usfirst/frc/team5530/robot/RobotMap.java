@@ -7,14 +7,9 @@
 
 package org.usfirst.frc.team5530.robot;
 
-/**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
- */
+
 public class RobotMap {
-	//CAN IDs
+	/**CAN IDs**/
 	//Driving
 	public static int FR = 1; //1
 	public static int FL = 2; //2
@@ -36,6 +31,7 @@ public class RobotMap {
 	public static int C0 = 30; //30
 	public static int C1 = 31; //31
 	
+	/**INPUT**/
 	//Potentiometer - Analog Input
 	public static int armPotentiometer = 0;
 	
@@ -44,5 +40,22 @@ public class RobotMap {
 	public static int LS1 = 1;
 	public static int LS2 = 2;
 	public static int LS3 = 3;
+	
+	/**ENUMS**/
+	public static enum Sides{
+		LEFT(false, true, "left"), RIGHT(true, false, "right");
+		
+		private final boolean isRight;
+		private final boolean isLeft;
+		private final String name;
+		Sides(boolean isRight, boolean isLeft, String name) {
+			this.isRight = isRight;
+			this.isLeft = isLeft;
+			this.name = name;
+		}
+		public boolean isRight() { return isRight; }
+	    public boolean isLeft() { return isLeft; }
+	    public String toString() { return name; }
+	}
 	
 }

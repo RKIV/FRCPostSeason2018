@@ -39,8 +39,8 @@ public class OI {
 				xboxButtonRB = new JoystickButton(XBController, 6);
 		
 		buttons[9].toggleWhenPressed(new Intake(true));
-		buttons[10].whenPressed(new MoveElevator(ElevatorSS.Position.Bot));
-		buttons[11].whenPressed(new MoveElevator(ElevatorSS.Position.Top));
+		buttons[10].whenPressed(new MoveElevator(ElevatorSS.Position.BOT));
+		buttons[11].whenPressed(new MoveElevator(ElevatorSS.Position.TOP));
 	}
 	
 	

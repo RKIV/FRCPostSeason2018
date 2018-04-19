@@ -27,14 +27,14 @@ public class MoveElevator extends Command {
 
     protected void execute() {
     		switch(position){
-    		case Bot:
+    		case BOT:
     			ElevatorSS.Elevator0.set(ControlMode.PercentOutput, -.25); 
     			break;
-    		case Mid: 
+    		case MID: 
     			if (ElevatorSS.Elevator0.getSelectedSensorPosition(0) < 19000) ElevatorSS.Elevator0.set(.75);
     			else ElevatorSS.Elevator0.set(.15);
     			break;
-    		case Top:
+    		case TOP:
     			if (ElevatorSS.Elevator0.getSelectedSensorPosition(0) < ElevatorSS.SLOW_HEIGHT) ElevatorSS.Elevator0.set(ControlMode.PercentOutput, 1);
     			else ElevatorSS.Elevator0.set(0.4);	
     			break;
@@ -43,12 +43,12 @@ public class MoveElevator extends Command {
 
     protected boolean isFinished() {
 	    	switch(position){
-			case Bot:
+			case BOT:
 				if(!ElevatorSS.elevatorSwitchBot.get()) return true;
 				break;
-			case Mid:
+			case MID:
 				break;
-			case Top:
+			case TOP:
 				if(!ElevatorSS.elevatorSwitchTop.get()) return true;
 				break;
 			}
@@ -57,14 +57,14 @@ public class MoveElevator extends Command {
 
     protected void end() {
     	switch(position){
-		case Bot:
+		case BOT:
 			ElevatorSS.Elevator0.set(0);
 			ElevatorSS.Elevator0.setSelectedSensorPosition(0, 0, 0);
 			break;
-		case Mid:
+		case MID:
 			ElevatorSS.Elevator0.set(0);
 			break;
-		case Top:
+		case TOP:
 			ElevatorSS.Elevator0.set(.18);
 			break;
 		}
